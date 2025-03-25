@@ -13,9 +13,14 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public IActionResult Produto(int id)
     {
-        return View();
+        Produto produto = _db.Produtos
+        .Where(produto => produto.id == id)
+        .Include(produto => produto.Categorias)
+        .Include(produto => produto.Fotos)
+        .SingleOrDefault();
+        return View(produto);
     }
 
     public IActionResult Privacy()
@@ -29,3 +34,4 @@ public class HomeController : Controller
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
+ 
