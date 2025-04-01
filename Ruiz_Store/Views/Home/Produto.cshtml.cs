@@ -1,4 +1,5 @@
-@model Ruiz_Store.Models.Produto@{
+@model Ruiz_Store.ViewModels.ProdutoVM
+@{
     ViewData["Titlee"] = "Detalhes do Produto";
 }
 

@@ -17,10 +17,22 @@ public class HomeController : Controller
     {
         Produto produto = _db.Produtos
         .Where(produto => produto.id == id)
-        .Include(produto => produto.Categorias)
         .Include(produto => produto.Fotos)
         .SingleOrDefault();
-        return View(produto);
+
+
+        List<ProdutoFoto> semelhantes = _db.Produtos
+        .Where(produto => produto.CategoriaId == produto.CategoriaId && p.Id != id)
+        .Include(produto => p.Fotos)
+        .Take(4)
+        .ToList();
+
+        ProdutoVM produtoVM = new(){
+            Produto = produto
+            Semelhantes = semelhantes
+        };
+
+        return View(produtoVM);
     }
 
     public IActionResult Privacy()
